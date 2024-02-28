@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spatial-app-service
+spec:
+  selector:
+    app: spatial-service
+  ports:
+    - protocol: TCP
+      port: 80 # External facing port
+      targetPort: 3000 
+  type: NodePort # Or other suitable service type 
+

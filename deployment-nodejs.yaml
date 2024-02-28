@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spatial-app
+  labels:
+    app: spatial-service
+spec:
+  replicas: 1 # Adjust as needed
+  selector:
+    matchLabels:
+      app: spatial-service
+  template:
+    metadata:
+      labels:
+        app: spatial-service
+    spec:
+      containers:
+      - name: spatial-app
+        image: <your-nodejs-image-name:tag>
+        ports:
+          - containerPort: 3000
+        env:
+          - name: DB_HOST 
+            value: spatial-service-db  # Adjust if your DB service name differs
+          # ... other environment variables ...
+
