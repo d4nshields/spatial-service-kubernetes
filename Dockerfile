@@ -5,13 +5,10 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy your package.json and package-lock.json (if applicable)
-COPY package*.json ./
+COPY spatial-service /app
 
 # Install dependencies
 RUN npm install
-
-# Copy your application source code 
-COPY . .
 
 # Expose the port your application listens on
 EXPOSE 3000 
