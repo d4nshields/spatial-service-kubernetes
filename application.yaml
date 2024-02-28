@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: spatial-service
+  namespace: argocd # Make sure you have the argocd namespace in your cluster
+spec:
+  project: default       # The default project in Argo CD
+  source:
+    repoURL: https://github.com/d4nshields/spatial-service-kubernetes  # Your repository URL
+    path: .               # The path within your repo where your manifests are located
+    targetRevision: HEAD  # Use the latest commit of the repository 
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated: {}
+
