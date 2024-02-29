@@ -20,11 +20,16 @@ spec:
         ports:
           - containerPort: 5432
         env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: spatial-service-db-creds 
+                key: username
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: postgres-secret 
-                key: postgres-password
+                name: spatial-service-db-creds
+                key: password
         volumeMounts:
           - name: postgis-data 
             mountPath: /var/lib/postgresql/data

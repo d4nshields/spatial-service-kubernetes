@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spatial-app
+  name: spatial-service
   labels:
     app: spatial-service
 spec:
@@ -15,12 +15,11 @@ spec:
         app: spatial-service
     spec:
       containers:
-      - name: spatial-app
-        image: spatial-app:latest
+      - name: spatial-service
+        image: spatial-service:latest
         ports:
           - containerPort: 3000
         env:
           - name: DB_HOST 
-            value: spatial-service-db  # Adjust if your DB service name differs
-          # ... other environment variables ...
+            value: spatial-service-db
 
