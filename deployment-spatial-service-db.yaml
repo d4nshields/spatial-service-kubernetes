@@ -1,11 +1,12 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spatial-service-db
 spec:
-  replicas: 1 
-  selector: 
-    matchLabels: 
+  replicas: 1
+  selector:
+    matchLabels:
       app: spatial-service-db
   template:
     metadata:
@@ -13,17 +14,33 @@ spec:
         app: spatial-service-db
     spec:
       containers:
-      - name: postgis
-        image: spatial-service-db:latest
-        env:
-        - name: POSTGRES_USER  
-          valueFrom:
-            secretKeyRef:
-              name: spatial-service-db-creds
-              key: username
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: spatial-service-db-creds
-              key: password
-
+        - name: postgis
+          image: spatial-service-db:latest
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: spatial-service-db-creds
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: spatial-service-db-creds
+                  key: password
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-data
+      volumes:
+        - name: db-data
+          persistentVolumeClaim:
+            claimName: spatial-service-db-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: spatial-service-db-data
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 5Gi
