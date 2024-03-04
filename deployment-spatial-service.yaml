@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: spatial-service
-  labels:
-    app: spatial-service
 spec:
   replicas: 1 # Adjust as needed
   selector:
@@ -16,7 +14,7 @@ spec:
     spec:
       containers:
       - name: spatial-service
-        image: spatial-service:latest
+        image: danshieldspala/palainteractive:latest
         ports:
           - containerPort: 3000
         env:
