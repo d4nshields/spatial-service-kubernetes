@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: spatial-service
 spec:
-  replicas: 1 # Adjust as needed
+  replicas: 1
   selector:
     matchLabels:
       app: spatial-service
